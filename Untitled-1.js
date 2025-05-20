@@ -1,3 +1,4 @@
+sessionStorage.setItem('scannedBooks', JSON.stringify([]));
 var previousCode = '';
 document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('barcode-video');
@@ -49,6 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (book) {
                     console.log('Book data:', book);
                     alert(`Title: ${book.title}\nAuthor: ${book.authors?.map(a => a.name).join(', ') || 'Unknown'}\nPublished: ${book.publish_date || 'Unknown'}`);
+                    let books = JSON.parse(sessionStorage.getItem('scannedBooks') || '[]');
+                    if (!books.some(b => b.isbn === code)) {
+                        books.push({
+                            isbn: code,
+                            title: book.title,
+                            authors: book.authors?.map(a => a.name) || [],
+                            published: book.publish_date || ''
+                        });
+                        let uniqueBooks = [... new Set(books)];
+                        sessionStorage.setItem('scannedBooks', JSON.stringify(uniqueBooks));
+                    }
                 } else {
                     // alert('No book data found for ISBN: ' + code);
                 }
@@ -117,4 +129,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+});
+
+document.getElementById('save-button').addEventListener('click', () => {
+    const books = JSON.parse(sessionStorage.getItem('scannedBooks') || '[]');
+    if (!books.length) {
+        alert('No books to save.');
+        return;
+    }
+    const csvRows = [
+        ['ISBN', 'Title', 'Authors', 'Published'],
+        ...books.map(book => [
+            book.isbn,
+            `"${book.title.replace(/"/g, '""')}"`,
+            `"${(book.authors || []).join('; ').replace(/"/g, '""')}"`,
+            `"${(book.published || '').replace(/"/g, '""')}"`
+        ])
+    ];
+    const csvContent = csvRows.map(row => row.join(',')).join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'scanned_books.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 });
