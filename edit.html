@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Books</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="edit.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: rgb(37, 150, 190);
+        }
+    </style>
+    <link rel="icon" href="stab-logo.png">
+    </head>
+
+<body onload="autoFill()">
+    <script type="module">
+        import{autoFill} from './edit.js';
+            window.autoFill = autoFill;
+        
+    </script>
+
+      <div id="global-navbar">
+        <ul id="nav-bar">
+            <li><a href="index.html"><img id="nav-bar-home-img" src="navBarHomePageImg.png" alt="Home Page Image Button" width="30px" height="30px"></a></li>
+                <li class="nav-bar-item nav-bar-highlight" id="nav-bar-search-books"><a href="admin.html">Admin Home Page</a></li>
+                <li class="nav-bar-item nav-bar-highlight" id="nav-bar-search-books"><a href="books.html">Search Availible Books</a></li>
+                <li class="nav-bar-item nav-bar-highlight" id="nav-bar-see-checked-out"><a href="checkedOutBooks.html">Books Currently Checked Out</a></li>
+                <li class="nav-bar-item nav-bar-highlight" id="nav-bar-see-checked-out"><a href="bulkEditing.html">Bulk Editing</a></li>
+                <li class="nav-bar-item nav-bar-highlight"><a href="contact.html">Contact Us</a></li>
+                <li id="nav-bar-instagram" class="nav-bar-item"> <a href="https://www.instagram.com/st.annesbelfield/?hl=en" target="_blank" rel="noopener noreferrer"><img src="instagramImage.png" alt="Instagram Logo Image" width="30px" height="30px"></a></li>
+        </ul>
+    </div>
+    <!-- This is the new/different code, most was copied from return books but now adds features Mr. Taylor can use to change book info -->
+    <div id="return-all">
+        <div id="return-body">
+            <div id="return-body-center">
+                <h2 id="edit-title">Edit Book</h2><br>
+                <div id="return-form-container">
+                    <form id="return-form">
+                        <p4 id="return-form-book-title">Book Title (Spell name correctly)</p4><br><br>
+                        <p4 id="cur_Author"> Authour: </p4> <br><br>
+                        
+                        <!-- New changes the Admin can use  -->
+                        
+
+                        <label for="new-description">Change Description</label><br>
+                        <textarea type="text" id="new-description" class="return-inputs i-pointer" name="New_Description"></textarea><br>
+
+                        <label id="cur-genre-display" for="new-genre">Change Genre</label><br>
+                        <select id="new-genre" class="return-inputs i-pointer" name="New_Genre" >
+                            <option value="no-change">No Change</option>
+                            <option value="Fiction">Fiction</option>
+                            <option value="Nonfiction">Nonfiction</option>j
+                            <option value="Science">Science</option>
+                            <option value="History">History</option>
+                            <option value="Bio/Auto">Biography/Autography</option>
+                            <option value="Speech">Speech</option>
+                            <option value="Essay">Essay</option>
+                            <option value="Medical">Medical</option>
+                        </select>
+                        <br>
+
+                        <label id= "cur-room-display" for="new-room">Change Room #</label><br>
+                        <input type="text" id="new-room" class="return-inputs i-pointer" name="New_Room" /><br>
+
+                        <label id="cur-shelf-display" for="new-shelf">Change Shelf #</label><br>
+                        <input type="text" id="new-shelf" class="return-inputs i-pointer" name="New_Shelf" /><br>
+
+                        <label id="cur-copy-display" for="new-copy">Change Total Copies</label><br>
+                        <input type="text" id="new-copy" class="return-inputs i-pointer" name="New_Copy" /><br>
+
+                        <label id="return-form-name-label" for="student-with-copy">Delete Student With Copy</label><br>
+                        <select id="student-with-copy" class="return-inputs i-pointer" name="New_Genre" >
+                            <option value="no-change">No Change</option>
+                        </select>
+                        <br>
+
+                        <label id= "add-student-display" for="new-student">Add Student Email</label><br>
+                        <input type="text" id="new-student" class="return-inputs i-pointer" name="New_Student" /><br>
+
+                        <input type="radio" id="return-radio" name="Last_Action" value="Returned" checked="checked" />
+                        <br />       
+                    </form>
+                    <input id="update-book-button" class="pointer" type="button" value="Submit Changes">
+                    <div id="return-tick-mark-holder"><div id="return-tick-mark"></div></div>
+                    <div id="return-cross-mark-holder"><div id="return-cross-mark"></div></div>
+                </div>
+            <!-- end of return-body-center div --></div>
+        <!-- end of return-body div --></div>
+
+        <div class="bg-pop-up">
+            <div class="pop-up-content">
+                <p id="edit-page-title"></p>
+                <p2 id="edit-page-author"></p2>
+                <br>
+                <br>
+                <hr>
+                <br>
+                <p2 id="edit-change-style">Changes: </p2>
+                <br><br>
+                <p2 id="confirm-description" class="confirm-info"></p2>
+                <p2 id="confirm-genre" class="confirm-info"></p2>
+                <p2 id="confirm-room" class="confirm-info"></p2>
+                <p2 id="confirm-shelf" class="confirm-info"></p2>
+                <p2 id="confirm-copy" class="confirm-info"></p2>
+                <p2 id="confirm-student-deleted" class="confirm-info"></p2>
+                <p2 id="confirm-student-added" class="confirm-info"></p2>
+                <p2 id="no-change" class="confirm-info"></p2>
+                <button type="button" class="close-edit-button">Cancel</button>
+                <button type="button" id="confirm-edit-button" class="confirm-edit-button">Confirm Changes</button>
+            </div>
+        </div>
+    <!--
+    <script>
+
+    // displays the drop down when the text box is clicked
+    document.getElementById("return-form-book-title").addEventListener("click", ()=>{
+        displayDropDown();
+        document.getElementById("return-drop-down").style.display = "grid"
+        document.getElementById("return-form-book-title").style.marginBottom = "0px"
+    });
+
+    // checks if we have the json data from the spreadsheet so we dont call it over and over again
+    function isDataHere () {
+        if (typeof(localStorage.getItem("spread-sheet"))!='undefined') {
+            console.log(1)
+            getData();
+        } else {
+            console.log(2)
+            spreadSheet = JSON.parse(localStorage.getItem("spread-sheet"));
+        }
+    }
+
+    // displays the drop down and changes the items in the drop down
+    function displayDropDown () {
+        document.getElementById("return-drop-down").innerHTML = ""
+        let s = document.getElementById("return-form-book-title").value;
+        for (let i = 0; i < spreadSheet.data.length; i++) {
+            if (spreadSheet.data[i].Book_Title.toLowerCase().includes(s.toLowerCase())) {
+                console.log(1)
+                document.getElementById("return-drop-down").innerHTML = document.getElementById("return-drop-down").innerHTML + "<option>Room Number: "+ spreadSheet.data[i].Room + ":   " +spreadSheet.data[i].Book_Title + "</option>"
+            }
+        }
+    }
+
+    //  changes the value of the input to the book title clicked on
+    $('body').on('change', 'select', function() {
+        let fired_button = $(this).val();
+        document.getElementById("return-form-book-title").value = fired_button;
+        document.getElementById("return-drop-down").style.display = "none";
+        document.getElementById("return-form-book-title").style.marginBottom = "5px"
+    });
+
+        //  hides the select drop down when it is clicked off of 
+    // $('body').on('blur', 'select', function() {
+    //     document.getElementById("return-drop-down").style.display = "none"
+    //     document.getElementById("return-form-book-title").style.marginBottom = "0px"
+    // });
+
+    // hides the drop down when it is clicked off of 
+    document.getElementById("return-drop-down").addEventListener("blur", ()=> {
+        document.getElementById("return-drop-down").style.display = "none";
+        document.getElementById("return-form-book-title").style.marginBottom = "5px"
+    })
+
+    // checks if the data is already in local storage
+    function isDataHere () {
+        if (typeof(localStorage.getItem("spread-sheet"))!='undefined') {
+            console.log(1)
+            getData();
+        } else {
+            spreadSheet = JSON.parse(localStorage.getItem("spread-sheet"));
+        }
+    }
+
+    var spreadSheet;
+    var books = [];
+    // gets the data from the spreadsheet
+    function getData() {
+        fetch("https://api.apispreadsheets.com/data/eksihvfg6DJsWlvl/").then(res => {
+            if (res.status === 200) {
+                //SUCCESS
+                // https://plainenglish.io/blog/how-to-store-json-data-in-local-storage-js-react-angular
+                res.json().then(data => {
+                    localStorage.setItem("spread-sheet", JSON.stringify(data));
+                    spreadSheet = JSON.parse(localStorage.getItem("spread-sheet"));
+                }).catch(err => console.log(err))
+            }
+            else {
+                // ERROR
+                console.log("errorrrrrrr")
+            }
+        })
+    }
+             
+            
+    // sends the data from the html form to the spreadsheet
+    function SubForm() {
+        $.ajax({
+            url: 'https://api.apispreadsheets.com/data/eksihvfg6DJsWlvl/',
+            type: 'post',
+            data: $("#return-form").serializeArray(),
+            // if we were able to connect to the api
+            success: function () {
+                resetForm()
+                document.getElementById("return-body-center").innerHTML = document.getElementById("return-body-center").innerHTML + "Book has been successfully returned"
+            },
+            // if we didnt connect to the api to input the data
+            error: function () {
+                document.getElementById("return-body-center").innerHTML = document.getElementById("return-body-center").innerHTML + "Book has failed to be returned"
+            }
+        });
+    }
+    // initializes the form submission 
+    document.getElementById("returning-book-button").addEventListener("click", () => {
+        SubForm();
+        //returnedOrNot();
+    })
+    // resets the values in the input boxes for after the form is submitted
+    function resetForm() {
+        document.getElementById("return-form-book-title").value = "";
+        document.getElementById("return-form-name-book").value = "";
+    }
+    </script>
+-->
+</body>
+
+</html>
+
+<!--room number they got it from
+    check that the name and the student id match
+    return the book to where you got it -->

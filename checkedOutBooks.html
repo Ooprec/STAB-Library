@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Nikaloziki Kutzhizvilili -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checked Out Books</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="checkedOutBooks.css" rel="stylesheet" type="text/css">
+    <link rel="icon" href="stab-logo.png">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="jquery-3.3.1copy.js"></script>
+</head>
+<body>
+
+    <script type="module">
+        // import functions from the js in order to use it here in html
+        import {showCheckedOut} from './checkedOutBooks.js';
+         
+          window.showCheckedOut = showCheckedOut;
+
+        </script>
+
+        <div id="global-navbar">
+            <ul id="nav-bar">
+            <li><a href="index.html"><img id="nav-bar-home-img" src="navBarHomePageImg.png" alt="Home Page Image Button" width="30px" height="30px"></a></li>
+            <li class="nav-bar-item nav-bar-highlight" id="nav-bar-search-books"><a href="books.html">Search Availible Books</a></li>
+            <li class="nav-bar-item nav-bar-highlight" id="nav-bar-see-checked-out"><a href="checkedOutBooks.html">Books Currently Checked Out</a></li>
+            <li class="nav-bar-item nav-bar-highlight"><a href="contact.html">Contact Us</a></li>
+            <li id="nav-bar-instagram" class="nav-bar-item"> <a href="https://www.instagram.com/st.annesbelfield/?hl=en" target="_blank" rel="noopener noreferrer"><img src="instagramImage.png" alt="Instagram Logo Image" width="50px" height="50px"></a></li>
+            </ul>
+        </div>
+        <br>
+        <div id="search-for-checked-out-books">
+            <h1 id="checkedOutBooksh1">Search For Your Checked Out Books</h1>
+            <h1 id ="enter-email" >*Enter email to view books checked out*</h1>
+            <div id="search-for-checked-out-books-search">
+            <label for="email-searched">School Email: </label>
+            <input type="text" id="email-searched">
+            <button class="check-out-button" onclick="showCheckedOut()">Search</button>
+            </div>
+        </div>
+
+        <div id="checked-books-display">
+        </div>
+        <div id="checked-books-display-for-search">
+        </div>
+    </div>
+
+</body>
+</html>

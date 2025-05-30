@@ -1,0 +1,110 @@
+#edit-title{
+  display: flex;
+  justify-content: center;
+  font-weight: lighter;
+  color: black;
+}
+
+#return-body-center{
+  grid-row: 1/2;
+  grid-column: 2/3;
+  justify-self: center;
+  position: absolute;
+  width: 30vw;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-40%);
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: white;
+}
+
+.bg-pop-up{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    overflow: scroll;
+}
+
+.pop-up-content{
+    width: 500px;
+    height: 600px;
+    background-color: white;
+    opacity: 1;
+    border-radius: 6px;
+    overflow: scroll;
+    padding: 10px;
+}
+
+#confirm-edit-button{
+    padding: 6px;
+    border-radius: 30px;
+    border: 1px solid white;
+    background-color: green;
+    color: white;
+}
+
+#confirm-edit-button:hover {
+    color: lightblue;
+    border-color: lightblue;
+  }
+
+#update-book-button {
+    background-color: green;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 30px;
+  }
+  
+#update-book-button:hover {
+    color: lightblue;
+    border-color: lightblue;
+}
+
+.close-edit-button {
+    border-color: transparent;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 30px;
+  }
+  
+.close-edit-button:hover {
+    color: black;
+    border-color: black;
+}
+
+.confirm-info{
+    display: block;
+    margin-left: 10px;
+    margin: 15px auto;
+}
+
+#edit-page-title{
+    font-size: 20px;
+}
+
+hr{
+    border-color: black;
+}
+
+#edit-change-style{
+    font-size: 20px;
+}
+
+#new-description{
+    width: 30 px;
+}
+
+.edit-highlight{
+    background-color: #B4D5FF;
+}

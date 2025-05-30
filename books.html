@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- test push functionality to github-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Books</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link rel="icon" href="stab-logo.png">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="jquery-3.3.1copy.js"></script>
+</head>
+
+
+<!-- onload means run the function everytime the code loads-->
+<body onload="getBookData()">
+    <script type="module">
+        // import functions from the js in order to use it here in html
+        import {importToDatabase, getBookData, bookDataFirebase, display, updateSearching, limitGenre} from './books.js';
+         
+          window.importToDatabase = importToDatabase;
+          window.getBookData = getBookData;
+          window.bookDataFirebase = bookDataFirebase;
+          window.display = display;
+          window.updateSearching = updateSearching;
+          window.limitGenre = limitGenre;
+          //getBookData();
+        </script>
+        <div id="books-topBar">
+        
+        </div>
+        <!-- top menu bar-->
+        <div id="global-navbar">
+            <ul id="nav-bar">
+                <li><a href="index.html"><img id="nav-bar-home-img" src="navBarHomePageImg.png" alt="Home Page Image Button" width="30px" height="30px"></a></li>
+                <li class="nav-bar-item nav-bar-highlight" id="nav-bar-search-books"><a href="books.html">Search Availible Books</a></li>
+                <li class="nav-bar-item nav-bar-highlight" id="nav-bar-see-checked-out"><a href="checkedOutBooks.html">Books Currently Checked Out</a></li>
+                <li class="nav-bar-item nav-bar-highlight"><a href="contact.html">Contact Us</a></li>
+                <li id="nav-bar-instagram" class="nav-bar-item"> <a href="https://www.instagram.com/st.annesbelfield/?hl=en" target="_blank" rel="noopener noreferrer"><img src="instagramImage.png" alt="Instagram Logo Image" width="50px" height="50px"></a></li>
+            </ul>
+        </div>
+        <div id="book-all">
+            <div id="books-top">
+                <h1 id="books-title">All Available Books</h1>
+                <div id="books-search">
+                    <div id="searching-div">
+                        <label for="searching-for-books" id="search-label">Search For Available Books:</label><br><br>
+                        <input type="text" name="searchings" class="i-pointer" id="searching-for-books">
+                        <!-- end of searching-div div -->
+                    </div><br>
+                    <div id="genre-div">
+                        <!-- checkbox for each filtering category -->
+                        <input type="checkbox" name="genre" class="pointer" id="checkbox-fiction" value="Fiction">
+                        <label for="checkbox-fiction" class="pointer">Fiction</label>
+                        <input type="checkbox" name="genre"class="pointer" id="checkbox-nonfiction" value="Nonfiction">
+                        <label for="checkbox-nonfiction" class="pointer">Nonfiction</label>
+                        <input type="checkbox" name="genre"class="pointer"  id="checkbox-science" value="Science">
+                        <label for="checkbox-science" class="pointer">Science</label>
+                        <input type="checkbox" name="genre" class="pointer" id="checkbox-horror" value="History">
+                        <label for="checkbox-horror" class="pointer">History</label>
+                        <input type="checkbox" name="genre" class="pointer" id="checkbox-biography/autobiography"
+                            value="Biography/Autobiography">
+                        <label for="checkbox-biography/autobiography" class="pointer">Biography/Autobiography</label>
+                        <input type="checkbox" name="genre" class="pointer" id="checkbox-speech" value="Speech">
+                        <label for="checkbox-speech" class="pointer">Speech</label>
+                        <input type="checkbox" name="genre" class="pointer" id="checkbox-essay" value="Essay">
+                        <label for="checkbox-essay" class="pointer">Essay</label>
+                        <input type="checkbox" name="genre" class="pointer" id="checkbox-medical" value="Medical">
+                        <label for="checkbox-medical" class="pointer">Medical</label>
+                        <!-- end of genre-div div -->
+                    </div>
+                    <!-- end of books-search div -->
+                </div>
+                <!-- end of books-top div -->
+            </div>
+            <!-- div-books is where the js puts all of the book information once we get the data back from the spreadsheet -->
+            <div id="div-books">
+                <!-- end of books div -->
+            </div>
+            <!-- end of books-all div -->
+        </div>
+            <!-- end of html-->
+    
+            <script type="text/javascript">
+                //var spreadSheet;
+                //console.log(localStorage.getItem("book-sheet"));
+                //var books = JSON.parse(localStorage.getItem("book-sheet")) || [];
+                //var book_count = localStorage.getItem("book-count");
+    
+                // checks if the spread sheet data is already in local storage so we dont send as many requests
+                /*function isDataHere () {
+                    if (typeof(localStorage.getItem("spread-sheet"))=='undefined') {
+                        console.log(1)
+                        getData();
+                    } else {
+                        
+                        spreadSheet = JSON.parse(localStorage.getItem("spread-sheet"));
+                        createNewArray(spreadSheet);
+                        display();
+                        
+                    }
+                }
+    
+                //================================================================
+                const externalHTMLs = '<a id="check-out-button" href="checkOut.html">Check Out</a>'
+                // const externalHTML = `<input type='button' id="check-out-button" onclick="location.href = 'file:///Users/paul/Desktop/Coding/HSE//checkOut.html';" value='Check Out'>`;
+                const externalHTML = `<input type='button' id="check-out-button" value=''>`;
+    
+                // creates the button related to the book it is assigned to for checking out
+                function makeButton(title) {
+                    return button =  `<button onclick="showCheckOut()" class="check-out-button" value='` + title + `'>` + "Check Out" + `</button>`
+                }
+                // when checking out a book it no longer shows the books and shows the checkout page
+                function showCheckOut () { 
+                    document.getElementById("book-all").style.display = "none"
+                    document.getElementById("check-out-all").style.display = "grid"
+                }
+                
+                // allows us to add an event listener to elements added to the DOM
+                $('body').on('click', '.check-out-button', function() {
+                    console.log(1)
+                    let fired_button = $(this).val();
+                    localStorage.setItem("checkOutBook", fired_button);  
+                    location.href = "checkOut.html"
+                });
+    
+                // gets the data from the spreadsheet
+                function getData() {
+                    // the link is the spreadsheet linked to the api account; basically to get the spreadsheet data
+                    fetch("https://api.apispreadsheets.com/data/eksihvfg6DJsWlvl/").then(res => {
+                        if (res.status === 200) {
+                            //check resonse status to check if SUCCESS
+                            res.json().then(data => {
+                                localStorage.setItem("spread-sheet", JSON.stringify(data));//send the data to local storage
+                                spreadSheet = JSON.parse(localStorage.getItem("spread-sheet"));//create a new spreadsheet item to get the data from local storage for displaying
+                                createNewArray(spreadSheet);//basically gets data and display
+                                display();
+                            }).catch(err => console.log(err))
+                        }
+                        else {
+                            // ERROR
+                            console.log("errorrrrrrr")
+                        }
+                    })
+                }
+                
+                // creates the new array of books to be displayed when a checkbox is checked or search is inputed
+                function createNewArray(datas) {
+                    for (let i = 0; i < datas.data.length; i++) {
+                        books.push(datas.data[i].Book_Title, datas.data[i].Author, datas.data[i].Summary, datas.data[i].Genre, datas.data[i].Room, datas.data[i].Shelf);
+                    }
+                
+                }
+                
+    
+                // displays all books on the page when the page first loadss
+                // goes through all the books in the array and adds them to the html
+                
+                function display() {
+                    document.getElementById("div-books").innerHTML = "";
+                    for (let i = 0; books.length; i += 6) {
+                        if (i < books.length - 12) {
+                            document.getElementById("div-books").innerHTML = document.getElementById("div-books").innerHTML + "<h3>" + books[i] + "</h3><p>" + books[i+1] + "</p><p>" + books[i+2] + "</p>" + "<p>Check Out Copy In Room: " + books[i+4] + "<br>On Self: " + books[i+5] + "</p></br>" + makeButton(books[i]) + "<hr>"; //make button here corresponds to the page of checkout book?
+                        } else {
+                            document.getElementById("div-books").innerHTML = document.getElementById("div-books").innerHTML + "<h3>" + books[i] + "</h3><p>" + books[i+1] + "</p><p>" + books[i+2] + "</p>" + "<p>Check Out Copy In Room: " + books[i+4] + "<br>On Self: " + books[i+5] + "</p></br>" + makeButton(books[i]);
+                        }
+                    }
+                }
+    
+                // narrows down the displayed books when the person is typing in the search box
+                // goes through all of the books and see if the input matches to the title, description, or author
+                // if it the input does match to any of those then it adds that book to an array
+                // that array is then passed through a funciton and then displayed on the html
+                document.getElementById("searching-for-books").oninput = () => {
+                    let search = document.getElementById("searching-for-books").value;
+                    var results = [];
+                    for (let i = 0; i < books.length; i += 6) {
+                        if (books[i].toLowerCase().includes(search.toLowerCase()) || books[i + 1].toLowerCase().includes(search.toLowerCase()) || books[i + 2].toLowerCase().includes(search.toLowerCase())) {
+                            results.push(books[i], books[i + 1], books[i + 2], books[i + 3], books[i + 4], books[i + 5]);
+                        }
+                    }
+                    // updates the page to display books that match the search
+                    updateSearching(results);
+                }
+    
+                // after somemone has searched for a book this will look through the title author and description
+                // if it finds a match it adds it to a new array that will then display only the items
+                // in that array on the screen
+                function updateSearching(results) {
+                    document.getElementById("div-books").innerHTML = "";
+                    for (let i = 0; i < results.length; i += 6) {
+                        if (i < results.length - 6) {
+                            document.getElementById("div-books").innerHTML = document.getElementById("div-books").innerHTML + "<h3>" + results[i] + "</h3><p>" + results[i + 1] + "</p><p>" + results[i + 2] + "<br><br> Check Out Copy In Room: " + results[i + 4] + "<br>On Self: "+ results[i + 5] + "</p><br>" + makeButton(results[i]) + "<hr>";
+                        } else {
+                            document.getElementById("div-books").innerHTML = document.getElementById("div-books").innerHTML + "<h3>" + results[i] + "</h3><p>" + results[i + 1] + "</p><p>" + results[i + 2]  + "<br><br> Check Out Copy in Room: " + results[i + 4] + "<br>On Self: "+ results[i + 5] + "</p><br>" + makeButton(results[i]);
+                        }
+                    }
+                    document.getElementById("div-books").scrollTop = 0;
+                }
+    
+                // Select all checkboxes with the name 'genre' using querySelectorAll.
+                var checkboxes = document.querySelectorAll("input[type=checkbox][name=genre]");
+                let enabledSettings = []
+    
+                /*
+                For IE11 support, replace arrow functions with normal functions and
+                use a polyfill for Array.forEach:
+                https://vanillajstoolkit.com/polyfills/arrayforeach/
+                */
+    
+                // Use Array.forEach to add an event listener to each checkbox.
+                /*
+                checkboxes.forEach(function (checkbox) {
+                    checkbox.addEventListener('change', function () {
+                        enabledSettings =
+                            Array.from(checkboxes) // Convert checkboxes to an array to use filter and map.
+                                .filter(i => i.checked) // Use Array.filter to remove unchecked checkboxes.
+                                .map(i => i.value) // Use Array.map to extract only the checkbox values from the array of objects.
+    
+                        console.log(enabledSettings)
+                        limitGenre(enabledSettings)
+                    })
+                });
+    
+                // takes the array from when a check box is clicked on and if the array isn't empty
+                // then it adds all books that match any of the items in the genre array to a new array
+                // then the books in the new array are displayed on the page
+                // if the enabledSettings array is empty then all the books are displayed because no checkboxes are checked
+                function limitGenre(enabledSettings) {
+                    var arr = []
+                    if (enabledSettings.length > 0) {
+                        for (let i = 0; i < books.length; i += 6) {
+                            if (enabledSettings.includes(books[i + 3])) {
+                                console.log(1)
+                                arr.push(books[i], books[i + 1], books[i + 2], books[i + 3], books[i + 4], books[i + 5]);
+                                console.log(arr)
+                            }
+                        }
+                        updateSearching(arr)
+                        return;
+                    }
+                    display()
+                } */
+                
+            </script>
+<!-- import data through a upload and submit button to the firebase, only need to run it once to initialize the data 
+<button onclick="importToDatabase()"> submit</button>
+    <input type="file" id="bookcsv">
+    <input type="submit">
+</form>
+-->
+
+</body>
+
+</html>
+
+
+<!-- search by status -->

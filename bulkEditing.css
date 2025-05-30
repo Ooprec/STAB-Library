@@ -1,0 +1,86 @@
+
+#select-all-box{
+    text-align: center;
+}
+
+#searching-content {
+    height: 30px;
+}
+
+#category{
+  width: 15%;
+  padding: 1px 15px;
+  display: inline-block;
+  border-radius: 6px;
+  box-sizing: border-box;
+  border: 1px solid darkgrey;
+}
+
+#search-content{
+  width: 40%;
+  padding: 8px 15px;
+  margin-top: 5px;
+  display: inline-block;
+  border: 1px solid darkgrey;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+#bulk-edit-books {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    overflow: scroll;
+    height: 500px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    margin-bottom: 10px;
+    opacity: 90%;
+    border: 1px lightgreen solid;
+    background-color: white;
+    color: lightgray;
+    text-align: left;
+    width: 50vw;
+    justify-self: center;
+    color: black;
+}
+
+.bulkEditCheckbox{
+  accent-color: maroon;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+
+label{
+  cursor: pointer;
+}
+
+.checkContainer{
+  cursor: pointer;
+}
+  
+.checkContainer:hover{
+  background-color: lightgray;
+}
+
+#selectChangeCategory{
+  width: 20%;
+  padding: 8px 15px;
+  margin-top: 5px;
+  display: inline-block;
+  border: 1px solid darkgrey;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+#change-content{
+  width: 30%;
+  padding: 10px 15px;
+  margin: 8px 8px;
+  display: inline-block;
+  border: 1px solid darkgrey;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+

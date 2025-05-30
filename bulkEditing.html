@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- This is the background for the admin portal and then runs the password program aswell -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Greenway Rise Library">
+  <meta name="description" content="STAB Library">
+  <meta name="description" content="Saints Library">
+  <meta name="description" content="STAB Greenway Rise Library">
+  <meta name="msapplication-TitleImage" conetent="stab-logo.png">
+  <title>Green Way Rise Books</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="bulkEditing.css" rel="stylesheet" type="text/css" />
+    
+<link rel="icon" href="stab-logo.png">
+</head>
+
+<body>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Books</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <link rel="icon" href="stab-logo.png">
+        <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+        <script src="jquery-3.3.1copy.js"></script>
+    </head>
+    
+    
+    <!-- onload means run the function everytime the code loads-->
+    <body onload="getEditData()">
+        <script src="adminportal1.js"></script>
+        <script type="module">
+            
+            // import functions from the js in order to use it here in html
+            import {getEditData, bookDataFirebaseEdit, displayeditpage, updateSearching, limitGenre} from './bulkEditing.js';
+             
+              window.getEditData = getEditData;
+              window.bookDataFirebaseEdit = bookDataFirebaseEdit;
+              window.displayeditpage = displayeditpage;
+              window.updateSearching = updateSearching;
+              window.limitGenre = limitGenre;
+              //getEditData();
+            </script>
+            <div id="books-topBar">
+            
+            </div>
+            <!-- top menu bar-->
+            <div id="global-navbar">
+                <ul id="nav-bar">
+                    <li><a href="index.html"><img id="nav-bar-home-img" src="navBarHomePageImg.png" alt="Home Page Image Button" width="30px" height="30px"></a></li>
+                    <li class="nav-bar-item nav-bar-highlight" id="nav-bar-search-books"><a href="admin.html">Admin Home Page</a></li>
+                    <li class="nav-bar-item nav-bar-highlight" id="nav-bar-search-books"><a href="books.html">Search Availible Books</a></li>
+                    <li class="nav-bar-item nav-bar-highlight" id="nav-bar-see-checked-out"><a href="checkedOutBooks.html">Books Currently Checked Out</a></li>
+                    <li class="nav-bar-item nav-bar-highlight" id="nav-bar-see-checked-out"><a href="bulkEditing.html">Bulk Editing</a></li>
+                    <li class="nav-bar-item nav-bar-highlight"><a href="contact.html">Contact Us</a></li>
+                    <li id="nav-bar-instagram" class="nav-bar-item"> <a href="https://www.instagram.com/st.annesbelfield/?hl=en" target="_blank" rel="noopener noreferrer"><img src="instagramImage.png" alt="Instagram Logo Image" width="30px" height="30px"></a></li>
+                </ul>
+            </div>
+            <div id="book-all">
+                <div id="books-top">
+                    <h1 id="books-title">Bulk Editing</h1>
+                    <div id="books-search">
+                        <div id="books-search-left">
+                            <label for="category">Choose a category:</label>
+                            <select name="category"  id="category">
+                                <option value="None">None</option>
+                                <option value="Room">Room</option>
+                                <option value="Author">Author</option>
+                                <option value="Genre">Genre</option>
+                            </select>
+                        <div id="searching-content">
+                            <label for="search-content">For all books in/by </label>
+                            <input type="text" name="searchings" class="i-pointer" id="search-content">
+                            <!-- end of searching-div div -->
+                        </div><br>
+                        
+                        <div id="genre-div">
+                            <!-- checkbox for each filtering category -->
+                            <input type="checkbox" name="genre" class="pointer" id="checkbox-fiction" value="Fiction">
+                            <label for="checkbox-fiction" class="pointer">Fiction</label>
+                            <input type="checkbox" name="genre"class="pointer" id="checkbox-nonfiction" value="Nonfiction">
+                            <label for="checkbox-nonfiction" class="pointer">Nonfiction</label>
+                            <input type="checkbox" name="genre"class="pointer"  id="checkbox-science" value="Science">
+                            <label for="checkbox-science" class="pointer">Science</label>
+                            <input type="checkbox" name="genre" class="pointer" id="checkbox-horror" value="History">
+                            <label for="checkbox-horror" class="pointer">History</label>
+                            
+                            <input type="checkbox" name="genre" class="pointer" id="checkbox-biography/autobiography"
+                                value="Biography/Autobiography">
+                            <label for="checkbox-biography/autobiography" class="pointer">Biography/Autobiography</label>
+                            <input type="checkbox" name="genre" class="pointer" id="checkbox-speech" value="Speech">
+                            <label for="checkbox-speech" class="pointer">Speech</label>
+                            <input type="checkbox" name="genre" class="pointer" id="checkbox-essay" value="Essay">
+                            <label for="checkbox-essay" class="pointer">Essay</label>
+                            <input type="checkbox" name="genre" class="pointer" id="checkbox-medical" value="Medical">
+                            <label for="checkbox-medical" class="pointer">Medical</label>
+                            <!-- end of genre-div div -->
+                        </div>
+                        <br><br>
+                        </div>
+
+                        <div id="books-search-right">
+                            
+                        </div>
+                        
+                        <!-- end of books-search div -->
+                    </div>
+                    
+                    <!-- end of books-top div -->
+                </div>
+                
+                <!-- div-books is where the js puts all of the book information once we get the data back from the spreadsheet -->
+                <div id="bulk-edit-books">
+                    <!-- end of books div -->
+                </div>
+                
+                <!-- end of books-all div -->
+            </div>
+                <!-- end of html-->
+    
+    </body>
+    
+    </html>

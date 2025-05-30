@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checking Out Book</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link rel="icon" href="stab-logo.png">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+</head>
+<body onload="autoFill()">
+
+    <script type="module">
+        import{autoFill} from './checkOut.js';
+            window.autoFill = autoFill;
+        
+    </script>
+
+    <div id="global-navbar">
+        <ul id="nav-bar">
+            <li><a href="index.html"><img id="nav-bar-home-img" src="navBarHomePageImg.png" alt="Home Page Image Button" width="30px" height="30px"></a></li>
+            <li class="nav-bar-item nav-bar-highlight" id="nav-bar-search-books"><a href="books.html">Search Availible Books</a></li>
+            <li class="nav-bar-item nav-bar-highlight" id="nav-bar-see-checked-out"><a href="checkedOutBooks.html">Books Currently Checked Out</a></li>
+            <li class="nav-bar-item nav-bar-highlight"><a href="contact.html">Contact Us</a></li>
+            <li id="nav-bar-instagram" class="nav-bar-item"> <a href="https://www.instagram.com/st.annesbelfield/?hl=en" target="_blank" rel="noopener noreferrer"><img src="instagramImage.png" alt="Instagram Logo Image" width="50px" height="50px"></a></li>
+        </ul>
+    </div>
+    <div id="check-out-all">
+        <div id="check-out-body">
+            <div id="check-out-body-center">
+                <h2 id="check-out-title">Check Out Book</h2><br>
+                <div id="check-out-form-container">
+                    <form id="check-out-form">
+                        <p4 id="check-out-form-book-title">Book Title (Spell name correctly)</p4><br><br>
+                        <p4 id="cur_Author"> Authour: </p4> <br><br>
+                        <p4 id="cur_Copies"> Copies Left: </p4> <br><br>
+                        <label id="check-out-form-name-label" for="check-out-form-name-book">Type in School Email: </label>
+                        <input type="text" id="check-out-form-name-book" class="check-out-inputs i-pointer" name="School_Email" /><br>
+                        
+                        <br />       
+                    </form>
+                    <input id="check-out-book-button" class="pointer" type="button" value="Check Out">
+                    <div id="check-out-tick-mark"></div>
+                    <div id="check-out-cross-mark"></div>
+                <!-- end of form div --></div>
+            <!-- end of check-out-body-center div --></div>
+        <!-- end of check-out-body div --></div>
+<script>
+
+    // gets the ISBN and outfills the book you want to check out. Use ISBN because sometimes different books have the same title
+    // iterates through book list everytime to get title & author
+    /*
+    function autoFill() {
+        if (typeof localStorage.getItem("checkOutBook") !== null) {
+            cur_ISBN = localStorage.getItem("checkOutBook");
+            // not sure iterate through book once everytime is slow or is it normal
+            if(localStorage.getItem("book-data") !== null){ 
+                var books = JSON.parse(localStorage.getItem("book-data"));
+                console.log("suc-from-local-storage");
+            }
+            for(let i = 0; i < books.length; i += 7){
+                if(books[i + 6] == cur_ISBN){
+                    cur_TITLE = books[i];
+                    cur_AUTHOR = books[i + 1];
+                }
+            }
+            document.getElementById("check-out-form-book-title").value = cur_TITLE;
+            document.getElementById("cur_Author").innerHTML = "Authour: " + cur_AUTHOR;
+        }
+    }
+    */
+/*
+    document.getElementById("check-out-book-button").addEventListener("click", ()=> {
+        SubForm()
+    })
+     // send the data for checking out a book to the spreadsheet
+        function SubForm() {
+            $.ajax({
+                url: 'https://api.apispreadsheets.com/data/eksihvfg6DJsWlvl/',
+                type: 'post',
+                data: $("#check-out-form").serializeArray(),
+                // if we were able to connect to the api
+                success: function () {
+                    resetForm()
+                    location.href = "index.html"
+                },
+                // if we didnt connect to the api to input the data
+                error: function () {
+                    alert("There was an error checking out the book")
+
+                }
+            });
+        }
+
+        // clears the form when checking a book out
+        function resetForm() {
+            document.getElementById("check-out-form-book-title").value = "";
+            document.getElementById("check-out-form-name-book").value = "";
+        }
+        */
+    </script>
+</body>
+</html>
